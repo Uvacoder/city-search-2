@@ -3,12 +3,26 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint ."
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "match-sorter": "^5.0.0"
   },
   "devDependencies": {
+    "@chancedigital/eslint-config": "^8.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.13.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
     "prettier": "^2.1.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@chancedigital",
+      "@chancedigital/eslint-config/node"
+    ]
   }
 }
