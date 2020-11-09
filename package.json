@@ -6,6 +6,9 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "match-sorter": "3"
+    "match-sorter": "^5.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.1.2"
   }
 }
