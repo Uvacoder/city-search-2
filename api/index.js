@@ -2,12 +2,9 @@ const express = require("express");
 const { matchSorter } = require("match-sorter");
 const cities = require("../cities");
 
-const port = process.env.PORT || 3030;
 const app = express();
 app.get("/api", allowCors(handler));
-app.listen(port, () =>
-  console.log(`Server running on ${port}, http://localhost:${port}`)
-);
+module.exports = app;
 
 function allowCors(fn) {
   return async function (req, res) {
