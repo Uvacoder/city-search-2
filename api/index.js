@@ -1,10 +1,13 @@
 const express = require("express");
-const matchSorter = require("match-sorter");
+const { matchSorter } = require("match-sorter");
 const cities = require("../cities");
 
+const port = process.env.PORT || 3030;
 const app = express();
 app.get("/api", allowCors(handler));
-module.exports = app;
+app.listen(port, () =>
+  console.log(`Server running on ${port}, http://localhost:${port}`)
+);
 
 function allowCors(fn) {
   return async function (req, res) {
@@ -30,9 +33,23 @@ function allowCors(fn) {
 }
 
 function handler(req, res) {
-  let term = req.url.substr(2, req.url.length - 3);
+  let queryKeys = getQueryKeys(getRawQuery(req.url));
+  if (queryKeys.length < 1) {
+    res.json([]);
+    return;
+  }
+
+  let term = queryKeys[0];
   let results = matchSorter(cities, decodeURIComponent(term), {
     keys: [(item) => `${item.city}, ${item.state}`],
   });
   res.json(results.slice(0, 10));
+}
+
+function getRawQuery(url) {
+  return url.includes("?") ? url.substring(url.indexOf("?")) : "";
+}
+
+function getQueryKeys(queryString) {
+  return Array.from(new URLSearchParams(queryString).keys());
 }
